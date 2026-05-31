@@ -20,7 +20,7 @@ public class TransacoesDAO {
     public List<Transacoes> consultarExtrato(int idUsuario) {
         List<Transacoes> extrato = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM Transacao WHERE id_usuario = ?";
+            String sql = "SELECT * FROM Transacao WHERE usuarioId = ?";
             PreparedStatement ps = conexao.prepareStatement(sql);
             ps.setInt(1, idUsuario);
             ResultSet rs = ps.executeQuery();
@@ -41,6 +41,23 @@ public class TransacoesDAO {
         catch (SQLException e) {
             JOptionPane.showMessageDialog(null,
                     "Erro ao recuperar extrato!");
+            throw new RuntimeException(e);
+        }
+    }
+    public void inserirTransacao(Transacoes tx) {
+        try {
+            String sql = "INSERT INTO Transacao (usuario_id, descricao, valor, data_transacao, hora, transacao) VALUES (?, ?, ?, ?, ?, ?)";
+            PreparedStatement ps = conexao.prepareStatement(sql);
+            ps.setInt(1, tx.getUsuarioId());
+            ps.setString(2, tx.getDescricao());
+            ps.setDouble(3, tx.getValor());
+            ps.setString(4, tx.getData());
+            ps.setString(5, tx.getHora());
+            ps.setString(6, tx.getTransacao());
+            ps.executeUpdate();
+            ps.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao inserir transação!");
             throw new RuntimeException(e);
         }
     }

@@ -1,27 +1,23 @@
-CREATE DATABASE flowbank; 
-USE flowbank; 
-
-CREATE TABLE usuarios (
-	id INT AUTO_INCREMENT PRIMARY KEY, 
-	nome VARCHAR(100) NOT NULL,
-    email VARCHAR (100) NOT NULL UNIQUE, 
-    celular VARCHAR(20) NOT NULL, 
-    data_nascimento DATE,
+CREATE TABLE Usuario (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    celular VARCHAR(20) NOT NULL,
+    dataDeNascimento VARCHAR(20),
     senha VARCHAR(255) NOT NULL
-    ); 
-    
-    CREATE TABLE transacoes (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    usuario_id INT NOT NULL, 
-    tipo ENUM('ENTRADA', 'SAIDA'),
+);
+
+CREATE TABLE Transacao (
+    id SERIAL PRIMARY KEY,
+    usuarioId INT NOT NULL,
+    transacao VARCHAR(50),
     descricao VARCHAR(255),
-    valor DECIMAL(10, 2) NOT NULL, 
-    data_transacao TIMESTAMP
-    DEFAULT CURRENT_TIMESTAMP, 
-    
-    FOREIGN KEY (usuario_id) 
-    REFERENCES usuarios(id) 
-    );
-    
+    valor DECIMAL(10, 2) NOT NULL,
+    data VARCHAR(20),
+    hora VARCHAR(20),
+
+    FOREIGN KEY (usuarioId) REFERENCES Usuario(id)
+);
+   ALTER TABLE Usuario ADD COLUMN saldo DECIMAL(10,2) DEFAULT 0.00;
 
     

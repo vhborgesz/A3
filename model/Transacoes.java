@@ -3,7 +3,8 @@ public class Transacoes {
 private int id;
 private int usuarioId;
 private String descricao; 
-private double valor; 
+private double valor;
+
 private String data;
 private String hora;
 private String transacao;
